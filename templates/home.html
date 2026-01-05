@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Petal & Bloom — Flower Studio</title>
+  <meta name="description" content="Petal & Bloom — handcrafted bouquets, workshops and flower delivery." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#fff8f6;
+      --accent:#d96b6b;
+      --accent-2:#4b9f6b;
+      --muted:#6b6b6b;
+      --card:#ffffff;
+      --glass: rgba(255,255,255,0.7);
+      --radius:16px;
+      --maxwidth:1100px;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      color:#222;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#fff);-webkit-font-smoothing:antialiased}
+    .container{width:90%;max-width:var(--maxwidth);margin:0 auto}
+
+    /* Header */
+    header{padding:28px 0;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#f6a6a6);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-family:'Playfair Display', serif}
+    .brand h1{margin:0;font-family:'Playfair Display', serif;font-size:20px}
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600}
+    .cta{background:var(--accent);color:white;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:600}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:center;padding:36px 0}
+    .hero-left h2{font-family:'Playfair Display', serif;font-size:44px;margin:0 0 12px}
+    .hero-left p{color:var(--muted);line-height:1.6;margin:0 0 18px}
+    .actions{display:flex;gap:12px}
+    .btn{padding:12px 18px;border-radius:12px;text-decoration:none;font-weight:600}
+    .btn-outline{background:transparent;border:2px solid var(--accent);color:var(--accent)}
+    .btn-primary{background:var(--accent-2);color:white}
+    .hero-card{background:var(--card);border-radius:18px;padding:18px;box-shadow:0 8px 30px rgba(50,50,50,0.08)}
+    .hero-card img{width:100%;border-radius:12px;display:block}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .tag{background:var(--glass);padding:6px 8px;border-radius:999px;font-size:13px;color:var(--muted)}
+
+    /* Gallery */
+    .section{padding:30px 0}
+    .section h3{margin:0 0 14px;font-size:22px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .card{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 6px 22px rgba(30,30,30,0.06)}
+    .card img{width:100%;height:220px;object-fit:cover;display:block}
+    .card .meta{padding:12px}
+    .card .meta h4{margin:0 0 6px;font-size:16px}
+    .card .meta p{margin:0;color:var(--muted);font-size:14px}
+
+    /* Services */
+    .services{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .service{background:linear-gradient(180deg,rgba(255,255,255,0.95),var(--card));padding:18px;border-radius:12px}
+    .service h4{margin:6px 0 0}
+
+    /* Newsletter / Contact */
+    .contact{display:flex;gap:18px;align-items:center}
+    .contact form{flex:1;display:flex;gap:8px}
+    .contact input,.contact textarea{padding:12px;border-radius:10px;border:1px solid #eee;width:100%;font-size:14px}
+    .contact button{padding:12px 16px;border-radius:10px;border:none;background:var(--accent);color:white;font-weight:700}
+
+    /* Footer */
+    footer{padding:26px 0;color:var(--muted);font-size:14px;border-top:1px solid #f0eaea;margin-top:18px}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .services{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:600px){
+      nav{display:none}
+      .grid{grid-template-columns:1fr}
+      .services{grid-template-columns:1fr}
+      .logo{width:44px;height:44px}
+      .hero-left h2{font-size:28px}
+    }
+
+    /* Modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);z-index:60}
+    .modal.open{display:flex}
+    .modal .inner{max-width:900px;width:92%;background:white;border-radius:14px;overflow:hidden}
+    .modal img{width:100%;height:60vh;object-fit:cover}
+
+    .collections-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+    margin-top:12px;
+    }
+
+    .collection-item{
+    background:white;
+    padding:8px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);
+    }
+
+    .collection-item img{
+    width:100%;
+    height:80px;
+    object-fit:cover;
+    border-radius:10px;
+    }
+
+    .collection-item span{
+    display:block;
+    margin-top:6px;
+    font-size:13px;
+    color:var(--muted);
+    font-weight:600;
+    }
+</style>
+</head>
+<body>
+  <header class="container">
+    <div class="brand">
+      <div class="logo">PB</div>
+      <div>
+        <h1>Petal & Bloom</h1>
+        <div style="font-size:12px;color:var(--muted)">Handcrafted bouquets & workshops</div>
+      </div>
+    </div>
+    <nav>
+      <a href="/gallery">Gallery</a>
+      <a href="/services">Services</a>
+      <a href="/contact">Contact</a>
+      <a class="cta" href="/order">ORDER</a>
+      <a class="cta" href="/login">LOGIN</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-left">
+        <h2>Fresh flowers for every moment</h2>
+        <p>From seasonal bouquets to wedding installations — we craft arrangements with sustainably-sourced blooms and a lot of love. Local delivery available.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="/order">Order Now</a>
+          <a class="btn btn-outline" href="/services">Our Services</a>
+        </div>
+<div class="section" style="margin-top:22px">
+  <h3>Popular collections</h3>
+
+  <div class="collections-grid">
+    <div class="collection-item">
+      <img src="static/rose.jpg" alt="Roses">
+      <span>Roses</span>
+    </div>
+
+    <div class="collection-item">
+      <img src="static/sea.jpg" alt="Seasonal">
+      <span>Seasonal</span>
+    </div>
+
+    <div class="collection-item">
+      <img src="static/mrg.jpg" alt="Wedding">
+      <span>Wedding</span>
+    </div>
+
+    <div class="collection-item">
+      <img src="static/pf.jpg" alt="Plants">
+      <span>Plants</span>
+    </div>
+
+    <div class="collection-item">
+      <img src="static/work.jpg" alt="Workshops">
+      <span>Workshops</span>
+    </div>
+  </div>
+</div>
+
+
+        <!-- <div class="section" style="margin-top:22px">
+          <h3>Popular collections</h3>
+          <div class="tags">
+            <span class="tag">Roses</span>
+            <span class="tag">Seasonal</span>
+            <span class="tag">Wedding</span>
+            <span class="tag">Plants</span>
+            <span class="tag">Workshops</span>
+          </div>
+        </div> -->
+      </div>
+
+      <aside class="hero-card">
+        <img src="static/bou.jpg" alt="Bouquet in vase">
+        <div style="display:flex;gap:10px;margin-top:10px;align-items:center">
+          <div style="flex:1">
+            <strong>Spring Harmony</strong>
+            <div style="color:var(--muted);font-size:13px">Bright mixed bouquet — ready today</div>
+          </div>
+          <div style="font-weight:700;color:var(--accent-2)">₹1,000</div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="gallery" class="section">
+      <h3>Gallery</h3>
+      <div class="grid" id="galleryGrid">
+        <!-- cards will be inlined for simplicity -->
+        <article class="card" tabindex="0" data-full="https://images.unsplash.com/photo-1516017506933-3f1f9b3e2b7f?q=80&w=1600&auto=format&fit=crop&s=placeholder">
+          <img src="static/ff.jpg" alt="Peony bouquet">
+          <div class="meta"><h4>Peony Dream</h4><p>Soft pink peonies and eucalyptus.</p></div>
+        </article>
+
+        <article class="card" tabindex="0" data-full="https://images.unsplash.com/photo-1529336953121-2f1b6a1b4d37?q=80&w=1600&auto=format&fit=crop&s=placeholder">
+          <img src="static/flw2.webp" alt="Wildflower posy">
+          <div class="meta"><h4>Wildflower Posy</h4><p>Loose, hand-tied seasonal stems.</p></div>
+        </article>
+
+        <article class="card" tabindex="0" data-full="https://images.unsplash.com/photo-1492136786081-6e3b1f2d0c1f?q=80&w=1600&auto=format&fit=crop&s=placeholder">
+          <img src="static/mm.jpg" alt="Wedding installation">
+          <div class="meta"><h4>Wedding Garland</h4><p>Elegant installation for ceremonies.</p></div>
+        </article>
+
+        <article class="card" tabindex="0" data-full="https://images.unsplash.com/photo-1490818387583-1baba5e638af?q=80&w=1600&auto=format&fit=crop&s=placeholder">
+          <img src="static/ss.jpg" alt="Sunflower bouquet">
+          <div class="meta"><h4>Sunny Day</h4><p>Sunflowers & seasonal filler.</p></div>
+        </article>
+
+        <article class="card" tabindex="0" data-full="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?q=80&w=1600&auto=format&fit=crop&s=placeholder">
+          <img src="static/gg.jpg" alt="Green plant">
+          <div class="meta"><h4>Potted Green</h4><p>Low-maintenance house plant.</p></div>
+        </article>
+
+        <article class="card" tabindex="0" data-full="https://images.unsplash.com/photo-1445474473975-3b0b5a2f9b7b?q=80&w=1600&auto=format&fit=crop&s=placeholder">
+          <img src="static/ff.jpg" alt="Floral crown">
+          <div class="meta"><h4>Floral Crown</h4><p>For photoshoots & festivals.</p></div>
+        </article>
+
+      </div>
+    </section>
+<section id="services" class="section">
+      <h3>Services</h3>
+      <div class="services">
+        <div class="service">
+          <strong>Custom Bouquets</strong>
+          <h4>From ₹799</h4>
+          <p style="color:var(--muted)">Designed to order. Same-day pickup available.</p>
+        </div>
+        <div class="service">
+          <strong>Event Styling</strong>
+          <h4>Weddings & Events</h4>
+          <p style="color:var(--muted)">Large-scale installations and table centrepieces.</p>
+        </div>
+        <div class="service">
+          <strong>Workshops</strong>
+          <h4>Learn floral arranging</h4>
+          <p style="color:var(--muted)">Small group classes — book online.</p>
+        </div>
+      </div> 
+    </section>
+
+    <section id="contact" class="section">
+      <h3>Contact & Orders</h3>
+      <div class="contact">
+        <div style="flex:1">
+          <p style="color:var(--muted)">Local delivery inside city. Bulk and corporate orders — email us.</p>
+          <dl style="color:var(--muted);font-size:14px">
+            <dt><strong>Phone:</strong></dt><dd>+91 98765 43210</dd>
+            <dt><strong>Email:</strong></dt><dd>hello@petalandbloom.example</dd>
+            <dt><strong>Address:</strong></dt><dd>12 Flower Lane, Chennai</dd>
+          </dl>
+        </div>
+        <form onsubmit="submitContact(event)" aria-label="Contact form">
+          <input id="name" required placeholder="Your name" />
+          <input id="email" type="email" required placeholder="Email" />
+          <textarea id="message" rows="3" placeholder="Message or order details"></textarea>
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+      <div>© <strong>Petal & Bloom</strong> 2025 · Crafted with care</div>
+      <div style="color:var(--muted)">Follow us on Instagram @petalandbloom</div>
+    </div>
+  </footer>
+
+  <!-- Lightbox modal -->
+  <!-- <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="inner">
+      <img id="modalImg" src="" alt="Expanded bouquet view"/>
+    </div>
+  </div> -->
+
+  <script>
+    // Simple gallery lightbox + keyboard accessibility
+    const grid = document.getElementById('galleryGrid');
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+
+    grid.querySelectorAll('.card').forEach(card=>{
+      card.addEventListener('click',()=>openCard(card));
+      card.addEventListener('keypress',(e)=>{ if(e.key === 'Enter') openCard(card)});
+    });
+
+    function openCard(card){
+      const src = card.getAttribute('data-full') || card.querySelector('img').src;
+      modalImg.src = src;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+    }
+    modal.addEventListener('click',()=>closeModal());
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+    function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); modalImg.src=''; }
+
+    // Basic contact form handler (no network) — provide user feedback
+    function submitContact(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if(!name||!email){ alert('Please provide name and email.'); return; }
+      // In a real site, send to your backend. Here we show a friendly confirmation.
+      alert('Thanks '+name+" — we've received your message. We'll contact you at " + email + '.');
+      e.target.reset?.();
+    }
+  </script>
+</body>
+</html>

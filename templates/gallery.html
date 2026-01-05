@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gallery — Petal & Bloom</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#fff8f6;
+      --accent:#d96b6b;
+      --accent-2:#4b9f6b;
+      --muted:#6b6b6b;
+      --card:#ffffff;
+      --radius:16px;
+      --maxwidth:1100px;
+      font-family: 'Inter', sans-serif;
+      color:#222;
+    }
+
+    body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#fff);
+      -webkit-font-smoothing:antialiased;
+    }
+    .container{
+      width:90%;
+      max-width:var(--maxwidth);
+      margin:0 auto;
+      padding-top:20px;
+    }
+
+    /* Header */
+    header{
+      padding:28px 0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{
+      width:56px;height:56px;border-radius:12px;
+      background:linear-gradient(135deg,var(--accent),#f6a6a6);
+      display:flex;align-items:center;justify-content:center;
+      color:white;font-weight:700;font-family:'Playfair Display';
+    }
+    .brand h1{margin:0;font-family:'Playfair Display', serif;font-size:20px}
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      margin-left:16px;
+      font-weight:600;
+    }
+    .cta{
+      background:var(--accent);
+      color:white;
+      padding:10px 14px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    /* Page Hero */
+    .title-section{
+      text-align:center;
+      padding:40px 0 20px;
+    }
+    .title-section h2{
+      font-size:42px;
+      margin:0;
+      font-family:'Playfair Display',serif;
+    }
+    .title-section p{
+      color:var(--muted);
+      max-width:700px;
+      margin:10px auto 0;
+      line-height:1.6;
+      font-size:16px;
+    }
+
+    /* Filter Buttons */
+    .filters{
+      text-align:center;
+      margin-top:20px;
+    }
+    .filters button{
+      background:var(--glass,#fff);
+      border:2px solid var(--accent);
+      border-radius:8px;
+      padding:8px 14px;
+      margin:5px;
+      cursor:pointer;
+      font-weight:600;
+      color:var(--accent);
+      transition:0.3s;
+    }
+    .filters button.active, .filters button:hover{
+      background:var(--accent);
+      color:white;
+    }
+
+    /* Gallery Grid */
+    .gallery-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+      margin-top:30px;
+    }
+    .gallery-card{
+      position:relative;
+      overflow:hidden;
+      border-radius:16px;
+      cursor:pointer;
+      transition:transform 0.3s, box-shadow 0.3s;
+      display:block;
+    }
+    .gallery-card img{
+      width:100%;
+      height:220px;
+      object-fit:cover;
+      display:block;
+      transition:transform 0.3s;
+    }
+    .gallery-card:hover img{
+      transform:scale(1.05);
+    }
+    .gallery-card .meta{
+      position:absolute;
+      bottom:0;
+      left:0;
+      width:100%;
+      padding:12px;
+      background:rgba(0,0,0,0.45);
+      color:white;
+      font-size:14px;
+    }
+
+    /* Lightbox Modal */
+    .modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,0.7);
+      z-index:50;
+    }
+    .modal.open{display:flex;}
+    .modal img{
+      max-width:90%;
+      max-height:80vh;
+      border-radius:12px;
+    }
+
+    footer{
+      text-align:center;
+      padding:30px 0;
+      color:var(--muted);
+      font-size:14px;
+      margin-top:40px;
+      border-top:1px solid #eee;
+    }
+
+    @media(max-width:900px){ .gallery-grid{grid-template-columns:1fr 1fr;} }
+    @media(max-width:600px){ 
+      header nav{display:none} 
+      .gallery-grid{grid-template-columns:1fr;} 
+      .title-section h2{font-size:32px;}
+    }
+  </style>
+</head>
+<body>
+
+<header class="container">
+  <div class="brand">
+    <div class="logo">PB</div>
+    <div>
+      <h1>Petal & Bloom</h1>
+      <small style="color:var(--muted);font-size:12px;">Handcrafted bouquets & workshops</small>
+    </div>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="gallery.html" style="color:var(--accent)">Gallery</a>
+    <a href="#contact" class="cta">Order</a>
+  </nav>
+</header>
+
+<div class="container">
+  <section class="title-section">
+    <h2>Gallery</h2>
+    <p>Browse our beautiful floral arrangements. Use the filters to view categories.</p>
+  </section>
+
+  <!-- Filters -->
+  <div class="filters">
+    <button class="active" data-filter="all">All</button>
+    <button data-filter="roses">Roses</button>
+    <button data-filter="wedding">Wedding</button>
+    <button data-filter="seasonal">Seasonal</button>
+    <button data-filter="workshop">Workshops</button>
+  </div>
+
+  <!-- Gallery Grid -->
+  <div class="gallery-grid" id="galleryGrid">
+
+    <div class="gallery-card" data-category="roses" data-full="static/rose.jpg">
+      <img src="static/rose.jpg" alt="Roses">
+      <div class="meta">Roses</div>
+    </div>
+
+    <div class="gallery-card" data-category="wedding" data-full="static/mm.jpg">
+      <img src="static/mm.jpg" alt="Wedding Garland">
+      <div class="meta">Wedding Garland</div>
+    </div>
+
+    <div class="gallery-card" data-category="seasonal" data-full="static/sea.jpg">
+      <img src="static/sea.jpg" alt="Seasonal">
+      <div class="meta">Seasonal Bouquet</div>
+    </div>
+
+    <div class="gallery-card" data-category="workshop" data-full="static/work.jpg">
+      <img src="static/work.jpg" alt="Workshop">
+      <div class="meta">Workshop</div>
+    </div>
+
+    <div class="gallery-card" data-category="roses" data-full="static/ff.jpg">
+      <img src="static/ff.jpg" alt="Peony Dream">
+      <div class="meta">Peony Dream</div>
+    </div>
+
+    <div class="gallery-card" data-category="seasonal" data-full="static/ss.jpg">
+      <img src="static/ss.jpg" alt="Sunny Day">
+      <div class="meta">Sunny Day</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Lightbox Modal -->
+<div id="modal" class="modal">
+  <img id="modalImg" src="" alt="Expanded bouquet">
+</div>
+
+<footer>
+  © 2025 Petal & Bloom — All Rights Reserved
+</footer>
+
+<script>
+  // Lightbox
+  const grid = document.getElementById('galleryGrid');
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modalImg');
+
+  grid.querySelectorAll('.gallery-card').forEach(card=>{
+    card.addEventListener('click',()=>{
+      modalImg.src = card.dataset.full;
+      modal.classList.add('open');
+    });
+  });
+
+  modal.addEventListener('click',()=>{
+    modal.classList.remove('open');
+    modalImg.src='';
+  });
+  document.addEventListener('keydown', e=>{
+    if(e.key==='Escape'){ modal.classList.remove('open'); modalImg.src=''; }
+  });
+
+  // Filters
+  const filterButtons = document.querySelectorAll('.filters button');
+  filterButtons.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      filterButtons.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.gallery-card').forEach(card=>{
+        if(filter==='all' || card.dataset.category===filter){
+          card.style.display='block';
+        } else { card.style.display='none'; }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

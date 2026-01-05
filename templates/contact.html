@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Details – Petal & Bloom</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #fff8f6;
+      --accent: #d96b6b;
+      --muted: #6b6b6b;
+      --card: #ffffff;
+      --radius: 16px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--muted);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .contact-card {
+      background: var(--card);
+      padding: 25px;
+      border-radius: var(--radius);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    dl {
+      margin: 0;
+    }
+
+    dt {
+      font-weight: 700;
+      margin-top: 15px;
+    }
+
+    dd {
+      margin: 5px 0 0 0;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Contact Details</h1>
+
+    <div class="contact-card">
+      <dl>
+        <dt>Phone:</dt>
+        <dd>+91 98765 43210</dd>
+
+        <dt>Email:</dt>
+        <dd>hello@petalandbloom.example</dd>
+
+        <dt>Address:</dt>
+        <dd>12 Flower Lane, Chennai, India</dd>
+
+        <dt>Working Hours:</dt>
+        <dd>Monday – Saturday: 9:00 AM – 8:00 PM</dd>
+      </dl>
+    </div>
+  </div>
+
+</body>
+</html>

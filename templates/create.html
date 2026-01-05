@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petal & Bloom | Create Account</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        font-family: "Segoe UI", Arial, sans-serif;
+
+        /* Multi flowers background */
+        background-image: url("https://images.unsplash.com/photo-1469259943454-aa100abba749");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    body::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.65);
+    }
+
+    .register-card {
+        position: relative;
+        width: 420px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 36px;
+        border-radius: 20px;
+        box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+        z-index: 1;
+    }
+
+    .brand {
+        text-align: center;
+        margin-bottom: 22px;
+    }
+
+    .brand h1 {
+        margin: 0;
+        font-size: 30px;
+        color: #b4536d;
+        letter-spacing: 1px;
+    }
+
+    .brand p {
+        margin-top: 6px;
+        font-size: 14px;
+        color: #6b7280;
+    }
+
+    label {
+        display: block;
+        margin-top: 14px;
+        font-size: 14px;
+        color: #374151;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin-top: 6px;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        font-size: 14px;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: #ec4899;
+        box-shadow: 0 0 0 3px rgba(236,72,153,0.25);
+    }
+
+    button {
+        width: 100%;
+        margin-top: 26px;
+        padding: 13px;
+        border: none;
+        border-radius: 14px;
+        background: linear-gradient(to right, #ec4899, #f472b6);
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: linear-gradient(to right, #db2777, #ec4899);
+    }
+
+    .links {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 14px;
+    }
+
+    .links a {
+        color: #ec4899;
+        text-decoration: none;
+        font-weight: 500;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="register-card">
+    <div class="brand">
+        <h1>Petal & Bloom</h1>
+        <p>Create Your Account</p>
+    </div>
+
+    <form action="/create" method="POST">
+        <label>Full Name</label>
+        <input type="text" name="name" placeholder="Enter your full name" required>
+
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="you@petalandbloom.com" required>
+
+        <label>Phone Number</label>
+        <input type="text" name="phone" placeholder="Enter your phone number" required>
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Create password" required>
+
+        <button type="submit">Create Account</button>
+
+        <div class="links">
+            Already have an account?
+            <a href="/login">Login</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

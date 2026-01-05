@@ -1,0 +1,36 @@
+<style>
+    table ,tr{
+        border-collapse: collapse;
+    }
+</style>
+<table border="1">
+    <TR>
+    <th>ID</th>
+    <th>NAME</th>
+    <th>MOBILE NUMBER</th>
+    <th>CATEGORY</th>
+    <th>DATE</th>
+    <th>TIME</th> 
+    <th>ADDRESS</th>
+    <th>MESSAGE</th>
+    <th>UPDATE</th>
+    <th>DELETE</th>
+
+
+    </TR>
+    <tr>
+        {%for i in data%}
+        <td>{{i[0]}}</td>
+        <td>{{i[1]}}</td>
+        <td>{{i[2]}}</td>
+        <td>{{i[3]}}</td>
+        <td>{{i[4]}}</td>
+        <td>{{i[5]}}</td>
+        <td>{{i[6]}}</td>
+        <td>{{i[7]}}</td>
+        <td> <a href='/update/{{i[0]}}'> UPDATE </td></a>
+        <th> <a href='/delete/{{i[0]}}'>DELETE</th></a>
+        
+    </tr>  
+    {%endfor %}
+</table>
