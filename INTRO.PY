@@ -42,8 +42,9 @@ a=Mail(app)
 def mail():
     otp=random.randint(1000,5000)
     session['uotp']=otp
-    
-    b=Message(' your OTP here',sender='muthulakshmichitra73@gmail.com',recipients=['rahilak2801@gmail.com'])
+    # session['lemail']=eemail
+    e_email= (session.get('lemail'))
+    b=Message(' your OTP here',sender='muthulakshmichitra73@gmail.com',recipients=[e_email])
     b.body=f"your otp {otp} valid upto 20 mins"
     
     try:
@@ -60,7 +61,7 @@ def otp():
         realotp= str(session.get('uotp'))
         
         if userotp == realotp:
-            return redirect ('/login')
+            return redirect ('/')
         
     return render_template('otp.html')
         
@@ -81,12 +82,14 @@ def login() :
         data = cur.fetchone()
         
         if data is None :
+            print('rrrrrrrrrrrrrr')
             return render_template ('login.html')
         pp = data[4]
         if login == pp :
+            print('fdghjs')
             session['lemail']=eemail
             session['lpassword']=login
-            return redirect('/')
+            return redirect('/mail')
         else:
             return 'invaild'
     return render_template('login.html')
@@ -101,7 +104,8 @@ def create():
         b=('insert into reg(name,email,phone,password) values(?,?,?,?)')
         cur.execute(b,(name,email,phone,password))
         conn.commit()
-        return redirect ('/mail')
+        session['lemail']=email
+        return redirect ('/login')
     return render_template('create.html')
 
 @app.route('/logout')
